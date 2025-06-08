@@ -1,0 +1,29 @@
+# Data files
+data/*.fastq.gz
+data/*.fq.gz
+*.fastq.gz
+*.fq.gz
+
+# Results
+results/
+work/
+.nextflow*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.log
+
+# SSH agent socket files
+ssh-agent*
+$(ssh-agent -s)*
+eval*ssh-agent*
