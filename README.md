@@ -48,7 +48,7 @@ nanopore_sample,nanopore,data/nanopore.fastq.gz,
 
 ## Deployment Profiles   
 The pipeline supports multiple execution environments:   
-------------------------------------------------------------------------------------   
+___________________________________________________________________________________       
 |Profile        |Use Case             |Memory         |CPUs           |Time        |   
 |local          |Development/Testing6 | 6GB           | 4             | 2h         | # used only with portion of data    
 |production     |HPC/Cloud            | 128GB         | 32            | 24h        |   
