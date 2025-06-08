@@ -4,23 +4,23 @@ Antibiotic Resistance (AMR) analysis pipeline for Illumina and Nanopore sequenci
 
 ## Quick Start   
 1. Clone Repository   
-'''bash   
+`bash   
 git clone <your-repo-url>   
-cd fohm-amr-pipeline'''   
+cd fohm-amr-pipeline`   
 
 2. Set Up Test Data   
 Option A: Download data   
 
-'''bash   
+`bash   
 mkdir -p data   
-cd data'''   
+cd data  `
 
 ## Download from Cloud
 curl -L <your_URL -o fast_R1.fastq.gz>   
 curl -L <your_URL -o fast_R2.fastq.gz>   
 curl -L <your_URL -o nanopore.fastq.gz>   
 
-"cd .."   
+`cd ..`   
 
 3. Run Pipeline   
 ### Local development (laptops/workstations):     
@@ -48,20 +48,20 @@ nanopore_sample,nanopore,data/nanopore.fastq.gz,
 
 ## Deployment Profiles   
 The pipeline supports multiple execution environments:   
-___________________________________________________________________________________       
-|Profile        |Use Case             |Memory         |CPUs           |Time        |   
+
+|Profile  |Use Case  |Memory  |CPUs  |Time  |   
+| --- | --- | --- | --- | --- |
 |local          |Development/Testing6 | 6GB           | 4             | 2h         | # used only with portion of data    
 |production     |HPC/Cloud            | 128GB         | 32            | 24h        |   
 |slurm          |SLURM clusters       | 128GB         | 32            | 24h        |   
 |aws            |AWS Cloud            | 128GB         | 32            | 24h        |   
 |test           |CI/CD                | 6GB           | 2             | 4h         | # used only with portion of data    
-------------------------------------------------------------------------------------   
 
 Example for cloud deployment:
-'''
+`
 bash# Scale up resources for large datasets
 nextflow run main.nf --input samplesheet.csv -profile production
-'''
+`
 
 ## Requirements   
 - Nextflow ≥22.10.1   
