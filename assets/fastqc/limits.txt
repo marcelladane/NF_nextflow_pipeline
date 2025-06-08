@@ -1,0 +1,13 @@
+# FastQC configuration file for quality thresholds
+# Format: module_name	warn_threshold	error_threshold
+per_base_quality	10	5
+per_tile_quality	10	5
+per_sequence_quality	10	5
+per_base_sequence_content	10	5
+per_sequence_gc_content	10	5
+per_base_n_content	20	5
+sequence_duplication_levels	70	20
+overrepresented_sequences	0.1	1
+adapter_content	10	5
+kmer_content	2	5
+n_content	5	20
