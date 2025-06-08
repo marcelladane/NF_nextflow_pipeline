@@ -1,0 +1,25 @@
+report_comment: >
+    FOHM AMR Pipeline quality control report. This report contains quality
+    metrics for Illumina and Nanopore sequencing data used for antibiotic
+    resistance analysis.
+
+report_header_info:
+    - Contact E-mail: 'fohm-bioinformatics@folkhalsomyndigheten.se'
+    - Pipeline: 'FOHM AMR Pipeline'
+    - Analysis type: 'Antibiotic Resistance Detection'
+
+top_modules:
+    - 'fastqc'
+
+module_order:
+    - fastqc:
+        name: 'FastQC'
+        anchor: 'fastqc'
+        info: 'This section of the report shows FastQC results for raw sequencing data.'
+
+export_plots: true
+
+fn_ignore_files:
+    - '*/.nextflow*'
+    - '*/work/*'
+    - '*/results/*'

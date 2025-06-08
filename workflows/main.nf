@@ -1,8 +1,17 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    WORKFLOWS/MAIN.NF - Data Loading and Basic Pipeline Structure
+    WORKFLOWS/MAIN.NF - Data Loading and Quality Control
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT MODULES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+include { FASTQC                      } from '../modules/local/fastqc/main'
+include { MULTIQC                     } from '../modules/local/multiqc/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -21,6 +30,9 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 */
 
 workflow FOHM_AMR {
+
+    ch_versions = Channel.empty()
+    ch_multiqc_files = Channel.empty()
 
     //
     // Create input channel from samplesheet
@@ -47,9 +59,35 @@ workflow FOHM_AMR {
     ch_platform_split.nanopore
         .view { meta, reads -> "Nanopore sample: ${meta.id} with 1 file" }
 
+    //
+    // MODULE: FastQC - Quality control for all reads
+    //
+    ch_all_reads = ch_platform_split.illumina.mix(ch_platform_split.nanopore)
+    
+    FASTQC (
+        ch_all_reads
+    )
+    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+
+    //
+    // MODULE: MultiQC - Aggregate quality control reports
+    //
+    MULTIQC (
+        ch_multiqc_files.collect(),
+        Channel.empty(),
+        Channel.empty(),
+        Channel.empty()
+    )
+    ch_versions = ch_versions.mix(MULTIQC.out.versions)
+
     emit:
-    illumina_reads = ch_platform_split.illumina
-    nanopore_reads = ch_platform_split.nanopore
+    illumina_reads     = ch_platform_split.illumina
+    nanopore_reads     = ch_platform_split.nanopore
+    fastqc_html        = FASTQC.out.html
+    fastqc_zip         = FASTQC.out.zip
+    multiqc_report     = MULTIQC.out.report
+    versions           = ch_versions
 }
 
 /*
