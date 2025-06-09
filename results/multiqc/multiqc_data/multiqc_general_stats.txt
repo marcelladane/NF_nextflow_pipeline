@@ -1,0 +1,4 @@
+Sample	fastqc-percent_duplicates	fastqc-percent_gc	fastqc-avg_sequence_length	fastqc-median_sequence_length	fastqc-percent_fails	fastqc-total_sequences
+illumina_R1	8.100161636321019	57.0	151.0	151	0.0	1.0
+illumina_R2	7.958228939678975	57.0	151.0	151	0.0	1.0
+nanopore	0.02030147693244544	57.0	7133.968050550678	2499	10.0	0.019703

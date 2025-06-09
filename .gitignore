@@ -5,7 +5,8 @@ data/*.fq.gz
 *.fq.gz
 
 # Results
-results/
+multiqc_clean_env/
+results/fastqc/zips
 work/
 .nextflow*
 
