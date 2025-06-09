@@ -77,32 +77,6 @@ illumina_R1.fastq.gz: e44f4abf80afaf09e23546b40a13c8ee
 illumina_R2.fastq.gz: 5239cbef2403b79c96ca782ff47fd8b0   
 nanopore.fastq.gz: 34407430af7ffc9fe296ebc217e6ffcf   
 
-## Known Issues & Solutions   
-- FastQC Configuration Challenges   
-- Issue: FastQC configuration format varies between versions and environments   
-
--- Multiple FastQC versions require different configuration file formats   
--- System-wide vs local configuration conflicts   
--- Java environment and classpath dependencies   
-
---- Current Status: Pipeline attempts real FastQC execution, falls back to demonstration output   
----Production Solution: Use containerized FastQC deployment   
-
-'''
-# Production FastQC
-docker run -v $(pwd):/data quay.io/biocontainers/fastqc:0.11.9--0 \   
-  fastqc /data/*.fastq.gz --outdir /data/results/   
-
-# Production MultiQC     
-docker run -v $(pwd):/data quay.io/biocontainers/multiqc:1.13--pyhdfd78af_0 \   
-  multiqc /data/results/ --outdir /data/reports/'''      
-
---- Expected QC Results (from real FastQC analysis):   
-~4% Illumina Universal Adapter contamination in test data   
-Good overall sequence quality scores   
-Recommendation: Proceed with adapter trimming before assembly   
-Assembly Readiness: Post-QC data suitable for SPAdes/Flye assembly   
-
 ## Development Strategy   
 Phase 1 (Current): Complete pipeline architecture with realistic demonstration outputs   
 Phase 2 (Production): Containerize all tools for environment-independent execution   
@@ -127,6 +101,9 @@ Repository Structure
 fohm-amr-pipeline/   
 ├── main.nf                 # Pipeline entry point   
 ├── nextflow.config         # Configuration   
+├── .gitignore             # Excludes large files   
+├── environment.yml        # Environment requirements   
+├── setup_environment.sh   # Install pkgs to environment   
 ├── workflows   
 ├──── main.nf       # Main workflow logic   
 ├── data   
@@ -152,4 +129,8 @@ fohm-amr-pipeline/
 ├── containers   
 ├────    
 ├────    
-└── .gitignore             # Excludes large files   
+├── results   
+├────fastqc                # contain all fastqc reports    
+├────multiqc               # contain multiqc reports
+├────pipeline_info         # contain system requirements/run time reports    
+├────
