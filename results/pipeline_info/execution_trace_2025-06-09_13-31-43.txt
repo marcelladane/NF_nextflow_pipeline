@@ -1,3 +1,0 @@
-task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-2	52/7bfa83	49915	FOHM_AMR:FASTQC (nanopore_sample)	COMPLETED	0	2025-06-09 13:31:46.247	19.7s	19.6s	117.2%	863.9 MB	4.1 GB	132.4 MB	1.7 MB
-1	94/3bf677	50701	FOHM_AMR:FASTQC (illumina_sample)	COMPLETED	0	2025-06-09 13:32:05.962	10.5s	10.5s	212.3%	600.6 MB	4.3 GB	136.8 MB	2.9 MB

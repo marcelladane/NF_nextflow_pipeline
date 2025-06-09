@@ -1,3 +1,3 @@
 sample,platform,fastq_1,fastq_2
 illumina_sample,illumina,data/illumina_R1.fastq.gz,data/illumina_R2.fastq.gz
-nanopore_sample,nanopore,data/nanopore.fastq.gz,
+nanopore_sample,nanopore,data/nanopore_subset.fastq.gz,

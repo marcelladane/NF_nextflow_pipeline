@@ -1,0 +1,42 @@
+# FOHM AMR Pipeline - Final Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core analysis tools
+multiqc==1.19
+
+# MultiQC dependencies
+matplotlib>=3.7.0
+jinja2>=3.1.0
+pyyaml>=6.0
+click>=8.1.0
+numpy>=1.24.0
+requests>=2.25.0
+coloredlogs>=15.0
+markdown>=3.3.0
+lxml>=4.6.0
+pillow>=8.0.0
+setuptools>=60.0.0
+simplejson>=3.17.0
+spectra>=0.0.11
+
+# Data processing and analysis
+pandas>=1.5.0
+scipy>=1.9.0
+seaborn>=0.12.0
+plotly>=5.0.0
+
+# File handling
+openpyxl>=3.1.0  # For Excel files
+xlsxwriter>=3.0.0
+
+# Development and testing
+pytest>=7.3.0
+black>=23.3.0
+flake8>=4.0.0
+
+# Documentation
+sphinx>=4.0.0
+sphinx-rtd-theme>=1.0.0
+
+# Note: Bioinformatics tools (FastQC, SPAdes, Flye, ABRicate, etc.) 
+# are installed via conda from bioconda channel for better compatibility

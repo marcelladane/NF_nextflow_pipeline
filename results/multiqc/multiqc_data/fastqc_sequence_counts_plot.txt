@@ -1,4 +1,0 @@
-Sample	Unique Reads	Duplicate Reads
-illumina_R1	918999.0	81001.0
-illumina_R2	920418.0	79582.0
-nanopore	19700.0	3.0

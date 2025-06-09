@@ -90,12 +90,20 @@ This approach prioritizes:
 ✅ Data loading and validation
 ✅ Platform detection (Illumina vs Nanopore)
 ✅ Git-friendly data management
-✅ FastQC quality control (with demonstration outputs + containerization strategy)
-✅ MultiQC reporting (with demonstration outputs + containerization strategy)
- Read trimming (Illumina) - Next: demonstration implementation
- Genome assembly (SPAdes/Flye) - Next: demonstration implementation
- AMR annotation (RGI) - Next: demonstration implementation
+✅ FastQC quality control
+✅ MultiQC reporting
+✅ Read trimming (Illumina) 
+✅ Genome assembly (SPAdes/Flye) - See notes on issues and workarounds
+ Abricate - Next: demonstration implementation
  Comparative analysis - Next: demonstration implementation   
+
+## Issues and workarounds
+- Flye failure:
+    - Nanopore file is a 120MB file, that is more than my laptop can handle. So my first approach was to create a script to fractionate the original file. 
+    - The second step tried was to setup a sequencial processing. So Flye would not start before Spades was done running. That also still failed.
+    - So for the last step I need to add a troubleshooting in case a file doesnt exist to proceed without it. Because I cannot run this tool on my laptop. That will need to be tested and optimized on the cloud. 
+- To have a full DB to run Abricade my laptop would not have computer power enough. For testing purposes, I use a mock DB made with help of AI. Therefore the results are not correct, only for demonstration purposes.
+
 
 Repository Structure   
 fohm-amr-pipeline/   
@@ -103,7 +111,8 @@ fohm-amr-pipeline/
 ├── nextflow.config         # Configuration   
 ├── .gitignore             # Excludes large files   
 ├── environment.yml        # Environment requirements   
-├── setup_environment.sh   # Install pkgs to environment   
+├── setup_environment.sh   # Install pkgs to environment
+├── README.rmd             # Pipeline development and implementation docs   
 ├── workflows   
 ├──── main.nf       # Main workflow logic   
 ├── data   
@@ -113,6 +122,9 @@ fohm-amr-pipeline/
 ├────local       
 ├────── fastqc
 ├────── multiqc   
+├────── trimmomatic       
+├────── spades   
+├────── flye   
 ├── bin   
 ├──── setup_fastqc_config   
 ├── assets    
@@ -124,8 +136,8 @@ fohm-amr-pipeline/
 ├────── fastqc_report_template   
 ├────── multiqc_report_template     
 ├── documents   
-├────    
-├────    
+├──── LLM_usage_documentation.rmd     
+├──── Technical_limitations_rmd   
 ├── containers   
 ├────    
 ├────    
