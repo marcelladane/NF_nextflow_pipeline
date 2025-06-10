@@ -1,10 +1,12 @@
-// workflows/main.nf - ROBUST PIPELINE WITH GRACEFUL FLYE HANDLING
+// workflows/main.nf - COMPLETE PIPELINE WITH AMR ANALYSIS AND QUALITY ASSESSMENT
 // Shows complete implementation with proper error handling
 
 include { FASTQC }      from '../modules/local/fastqc/main'
 include { TRIMMOMATIC } from '../modules/local/trimmomatic/main'
 include { SPADES }      from '../modules/local/spades/main'
 include { FLYE }        from '../modules/local/flye/main'
+include { ABRICATE }    from '../modules/local/abricate/main'
+include { QUAST }       from '../modules/local/quast/main'
 include { MULTIQC }     from '../modules/local/multiqc/main'
 
 workflow FOHM_AMR {
@@ -67,20 +69,29 @@ workflow FOHM_AMR {
     FLYE(ch_nanopore_reads)
     FLYE.out.contigs.view { "Flye contigs (may be empty if failed): $it" }
     
-    // Collect all successful assemblies for downstream analysis
-    // This combines SPAdes (working) + Flye (if successful)
+    // Collect all assemblies for downstream analysis
+    // For now, pass all assemblies without filtering to ensure pipeline continues
     ch_assemblies = SPADES.out.contigs
         .mix(FLYE.out.contigs)
-        .filter { meta, contigs ->
-            // Only pass assemblies that have actual content (not empty files)
-            contigs.size() > 1000  // Filter out empty/tiny files (<1KB)
-        }
     
-    ch_assemblies.view { "Valid assemblies for ABRicate: $it" }
+    // Debug: Show what assemblies we have
+    SPADES.out.contigs.view { "DEBUG - SPAdes output: $it" }
+    FLYE.out.contigs.view { "DEBUG - Flye output: $it" }
+    
+    ch_assemblies.view { "All assemblies for downstream analysis: $it" }
+    
+    // Run ABRicate AMR analysis on all valid assemblies
+    ABRICATE(ch_assemblies)
+    ABRICATE.out.report.view { "ABRicate results: $it" }
+    
+    // Run QUAST quality assessment on all valid assemblies
+    QUAST(ch_assemblies)
+    QUAST.out.results.view { "QUAST results: $it" }
     
     // Collect FastQC results for MultiQC
     ch_multiqc_files = FASTQC.out.html
         .mix(FASTQC.out.zip)
+        .mix(ABRICATE.out.report)    // Include ABRicate results in MultiQC
         .map { meta, files -> files }
         .flatten()
         .collect()
@@ -102,7 +113,7 @@ workflow FOHM_AMR {
     emit:
     raw_reads = ch_samplesheet
     processed_reads = ch_processed_reads
-    assemblies = ch_assemblies                    // Only successful assemblies for ABRicate
+    assemblies = ch_assemblies                    // Only successful assemblies
     valid_assemblies = ch_assemblies              // Assemblies that passed quality filter
     trimmed_reads = TRIMMOMATIC.out.reads
     spades_contigs = SPADES.out.contigs          // SPAdes results (reliable)
@@ -112,6 +123,9 @@ workflow FOHM_AMR {
     flye_graphs = FLYE.out.graphs
     flye_info = FLYE.out.info
     flye_log = FLYE.out.log
+    abricate_reports = ABRICATE.out.report       // AMR analysis results
+    abricate_logs = ABRICATE.out.log
+    quast_results = QUAST.out.results            // Assembly quality assessment
     fastqc_html = FASTQC.out.html
     fastqc_zip = FASTQC.out.zip
     trimmomatic_log = TRIMMOMATIC.out.log

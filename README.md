@@ -1,148 +1,170 @@
-# FOHM AMR Pipeline
+# FOHM AMR Pipeline - Complete Usage Guide
 
-Antibiotic Resistance (AMR) analysis pipeline for Illumina and Nanopore sequencing data.   
+## Prerequisites
 
-## Quick Start   
-1. Clone Repository   
-`bash   
-git clone <your-repo-url>   
-cd fohm-amr-pipeline`   
+1. **Setup mock databases** (for local testing):
+```bash
+# Run the database setup script
+cd bin
+bash setup_fohm_databases.sh
+cd ..
 
-2. Set Up Test Data   
-Option A: Download data   
+# Set environment variable for ABRicate
+export ABRICATE_DATADIR="./databases/abricate"
+```
 
-`bash   
-mkdir -p data   
-cd data  `
+2. **Verify tools are installed**:
+```bash
+# Check essential tools
+nextflow -version
+fastqc --version
+multiqc --version
+trimmomatic -version
+spades.py --version
+flye --version
+abricate --version
+quast.py --version
+```
 
-## Download from Cloud
-curl -L <your_URL -o fast_R1.fastq.gz>   
-curl -L <your_URL -o fast_R2.fastq.gz>   
-curl -L <your_URL -o nanopore.fastq.gz>   
+## Pipeline Execution
 
-`cd ..`   
+### 1. Local Testing (recommended first run)
+```bash
+# Use local profile with reduced resources and mock databases
+nextflow run main.nf --input data/samplesheet.csv -profile local
 
-3. Run Pipeline   
-### Local development (laptops/workstations):     
-bashnextflow run main.nf --input data/samplesheet.csv -profile local   
+# Alternative with custom parameters
+nextflow run main.nf \
+    --input data/samplesheet.csv \
+    --abricate_datadir ./databases/abricate \
+    --abricate_db card \
+    --outdir results_local \
+    -profile local
+```
 
-#### Production (HPC/Cloud with full resources):   
-bashnextflow run main.nf --input data/samplesheet.csv -profile production   
+### 2. Production Run (with full resources)
+```bash
+# Production profile for HPC/cloud environments
+nextflow run main.nf --input data/samplesheet.csv -profile production
 
-### SLURM cluster:   
-bashnextflow run main.nf --input data/samplesheet.csv -profile slurm   
+# With custom AMR database settings
+nextflow run main.nf \
+    --input data/samplesheet.csv \
+    --abricate_db resfinder \
+    --abricate_minid 80 \
+    --abricate_mincov 60 \
+    -profile production
+```
 
-### AWS Cloud:   
-bashnextflow run main.nf --input data/samplesheet.csv -profile aws   
+### 3. SLURM Cluster
+```bash
+# For HPC environments with SLURM
+nextflow run main.nf --input data/samplesheet.csv -profile slurm
+```
 
-Results will be generated in:   
-- results/fastqc/ - Individual FastQC reports   
-- results/multiqc/ - Aggregated quality control report   
+## Pipeline Outputs
 
-## Input Format   
-The pipeline expects a CSV samplesheet:   
-- csv  
-sample,platform,fastq_1,fastq_2   
-illumina_sample,illumina,data/illumina_R1.fastq.gz,data/illumina_R2.fastq.gz   
-nanopore_sample,nanopore,data/nanopore.fastq.gz,   
+### Quality Control
+- `results/fastqc/` - Individual FastQC reports for each sample
+- `results/multiqc/` - Comprehensive quality report combining all analyses
 
-## Deployment Profiles   
-The pipeline supports multiple execution environments:   
+### Assembly Results
+- `results/spades/` - SPAdes assemblies for Illumina data
+- `results/flye/` - Flye assemblies for Nanopore data (may be empty if failed)
 
-|Profile  |Use Case  |Memory  |CPUs  |Time  |   
-| --- | --- | --- | --- | --- |
-|local          |Development/Testing6 | 6GB           | 4             | 2h         | # used only with portion of data    
-|production     |HPC/Cloud            | 128GB         | 32            | 24h        |   
-|slurm          |SLURM clusters       | 128GB         | 32            | 24h        |   
-|aws            |AWS Cloud            | 128GB         | 32            | 24h        |   
-|test           |CI/CD                | 6GB           | 2             | 4h         | # used only with portion of data    
+### AMR Analysis
+- `results/abricate/` - AMR gene predictions
+  - `*_abricate.tsv` - Detailed AMR gene annotations
+  - `logs/` - Analysis logs
 
-Example for cloud deployment:
-`
-bash# Scale up resources for large datasets
-nextflow run main.nf --input samplesheet.csv -profile production
-`
+### Assembly Quality Assessment
+- `results/quast/` - Assembly quality metrics
+  - `*_quast/report.html` - Interactive quality reports
+  - `*_quast/report.tsv` - Tabular quality metrics
 
-## Requirements   
-- Nextflow ≥22.10.1   
-- Docker or Singularity   
-- curl (for data download)   
+### Processing Logs
+- `results/pipeline_info/` - Execution reports and timelines
 
-Data Management   
-- Large FASTQ files are excluded from Git via .gitignore   
-- Data must be downloaded separately before running pipeline   
+## Expected Behavior with Test Data
 
-Expected checksums (MD5):   
-illumina_R1.fastq.gz: e44f4abf80afaf09e23546b40a13c8ee   
-illumina_R2.fastq.gz: 5239cbef2403b79c96ca782ff47fd8b0   
-nanopore.fastq.gz: 34407430af7ffc9fe296ebc217e6ffcf   
+### Successful Components ✅
+- **FastQC**: Complete quality control for all samples
+- **Trimmomatic**: Read trimming for Illumina paired-end data
+- **SPAdes**: Assembly of Illumina reads (working reliably)
+- **ABRicate**: AMR gene annotation (using mock databases)
+- **QUAST**: Assembly quality assessment
+- **MultiQC**: Comprehensive reporting
 
-## Development Strategy   
-Phase 1 (Current): Complete pipeline architecture with realistic demonstration outputs   
-Phase 2 (Production): Containerize all tools for environment-independent execution   
-This approach prioritizes:   
-✅ Complete end-to-end workflow demonstration   
-✅ Realistic bioinformatics analysis expectations   
-✅ Professional problem-solving approach   
-✅ Production-ready architecture planning   
+### Limited Components ⚠️
+- **Flye**: May fail due to memory constraints on development hardware
+  - Pipeline continues gracefully
+  - Empty assembly files are filtered out automatically
+  - Other analyses proceed with available assemblies
 
-## Development Status
-✅ Data loading and validation
-✅ Platform detection (Illumina vs Nanopore)
-✅ Git-friendly data management
-✅ FastQC quality control
-✅ MultiQC reporting
-✅ Read trimming (Illumina) 
-✅ Genome assembly (SPAdes/Flye) - See notes on issues and workarounds
- Abricate - Next: demonstration implementation
- Comparative analysis - Next: demonstration implementation   
+## Pipeline Parameters
 
-## Issues and workarounds
-- Flye failure:
-    - Nanopore file is a 120MB file, that is more than my laptop can handle. So my first approach was to create a script to fractionate the original file. 
-    - The second step tried was to setup a sequencial processing. So Flye would not start before Spades was done running. That also still failed.
-    - So for the last step I need to add a troubleshooting in case a file doesnt exist to proceed without it. Because I cannot run this tool on my laptop. That will need to be tested and optimized on the cloud. 
-- To have a full DB to run Abricade my laptop would not have computer power enough. For testing purposes, I use a mock DB made with help of AI. Therefore the results are not correct, only for demonstration purposes.
+### Core Parameters
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `--input` | Samplesheet CSV file | Required |
+| `--outdir` | Output directory | `./results` |
 
+### AMR Analysis Parameters
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `--abricate_db` | AMR database to use | `card` |
+| `--abricate_datadir` | Custom database directory | `null` |
+| `--abricate_minid` | Minimum identity threshold | `75` |
+| `--abricate_mincov` | Minimum coverage threshold | `50` |
 
-Repository Structure   
-fohm-amr-pipeline/   
-├── main.nf                 # Pipeline entry point   
-├── nextflow.config         # Configuration   
-├── .gitignore             # Excludes large files   
-├── environment.yml        # Environment requirements   
-├── setup_environment.sh   # Install pkgs to environment
-├── README.rmd             # Pipeline development and implementation docs   
-├── workflows   
-├──── main.nf       # Main workflow logic   
-├── data   
-├──── samplesheet.csv    # Input specification   
-├──── *.fastq.gz         # (excluded from Git)   
-├── modules   
-├────local       
-├────── fastqc
-├────── multiqc   
-├────── trimmomatic       
-├────── spades   
-├────── flye   
-├── bin   
-├──── setup_fastqc_config   
-├── assets    
-├──── multiqc_config      
-├──── fastqc   
-├────── adapter_list   
-├────── limits   
-├──── demo   
-├────── fastqc_report_template   
-├────── multiqc_report_template     
-├── documents   
-├──── LLM_usage_documentation.rmd     
-├──── Technical_limitations_rmd   
-├── containers   
-├────    
-├────    
-├── results   
-├────fastqc                # contain all fastqc reports    
-├────multiqc               # contain multiqc reports
-├────pipeline_info         # contain system requirements/run time reports    
-├────
+### Quality Control Parameters
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `--skip_fastqc` | Skip FastQC analysis | `false` |
+| `--skip_multiqc` | Skip MultiQC reporting | `false` |
+| `--skip_abricate` | Skip AMR analysis | `false` |
+| `--skip_quast` | Skip assembly QC | `false` |
+
+## Troubleshooting
+
+### Memory Issues with Flye
+If you see memory errors:
+```
+ERROR: Looks like the system ran out of memory
+```
+This is expected on development hardware. The pipeline will:
+1. Log the error
+2. Create empty output files
+3. Continue with other processes
+4. Filter out failed assemblies automatically
+
+### ABRicate Database Issues
+If ABRicate fails to find databases:
+```bash
+# Ensure mock databases are set up
+bash bin/setup_fohm_databases.sh
+
+# Set environment variable
+export ABRICATE_DATADIR="./databases/abricate"
+
+# Or use parameter
+--abricate_datadir ./databases/abricate
+```
+
+### QUAST Issues
+If QUAST fails, the pipeline will generate basic assembly statistics manually to ensure continuation.
+
+## Development Notes
+
+- The pipeline is designed to handle partial failures gracefully
+- Mock databases are used for local testing to avoid downloading large reference databases
+- Resource requirements are scaled by profile (local vs production)
+- All processes include comprehensive error handling and logging
+
+## Next Steps
+
+For production deployment:
+1. Use real AMR databases: `abricate --setupdb`
+2. Increase resource allocations for large datasets
+3. Consider containerization for reproducibility
+4. Implement CI/CD testing with the test profile

@@ -29,6 +29,3 @@ ssh-agent*
 $(ssh-agent -s)*
 eval*ssh-agent*
 
-# script to make fake DB and decrease file size
-setup_fohm_databases
-create_small_nanopore

@@ -18,7 +18,8 @@
 ### 3. **Assistency to troubleshooting when error happened**
 - Issue with installation of fastqc and multiqc required fast help on code troubleshoot due to shortage of time for assignment
 - AI generated code to troubleshoot installation of fastqc and multiqc and track error
-- Error running fly and assistance to edit code - since it is the first time I use the tool (I didn´t work with pipelines for nanopore before, so assistance to run flye was needed since I didn´t have time enough to evaluate the full documentation and understand all requirements in depth). 
+- Error running flye and assistance to edit code - since it is the first time I use the tool (I didn´t work with pipelines for nanopore before, so assistance to run flye was needed since I didn´t have time enough to evaluate the full documentation and understand all requirements in depth).
+- Issue to setup the mock DB for abricate. After figuring that we had a Klebsiella DNA (I took a portion of the contig file from SPAdes and blasted in NCBI to see which bacteria was), I needed to create a new DB specific to get some hits. Because with the very generic DB I got zero hits. Used AI to help me create a new DB specific to Klebsiella to ensure pipeline execution. 
 
 ## Key Discussion Points & Prompts
 
@@ -45,6 +46,8 @@
 ```
 
 "Based on a short screen of flye, I wrote this basic script for processing nanopore data (see attached file). I got an error printed. Can you please revise the code and help me understand which parameter is causing the error and the best fixing for it."
+
+"I run blast on my contig output from SPAdes and found that the bacteria we are working with (the FASTA files I have) is Klebsiella. Can you help me create a new mock DB (I am attaching the previous script here to makes things work properly). where the AMR genes are specific to Klebsiella so I can ensure I will get hits to verify that abricate module is running correct, Thanks"
 ```
 
 ## Data Security Measures

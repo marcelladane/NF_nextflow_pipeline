@@ -1,0 +1,24 @@
+All statistics are based on contigs of size >= 500 bp, unless otherwise noted (e.g., "# contigs (>= 0 bp)" and "Total length (>= 0 bp)" include all contigs).
+
+Assembly                    illumina_sample_contigs
+# contigs (>= 0 bp)         114                    
+# contigs (>= 1000 bp)      47                     
+# contigs (>= 5000 bp)      33                     
+# contigs (>= 10000 bp)     31                     
+# contigs (>= 25000 bp)     28                     
+# contigs (>= 50000 bp)     25                     
+Total length (>= 0 bp)      5240590                
+Total length (>= 1000 bp)   5227159                
+Total length (>= 5000 bp)   5201163                
+Total length (>= 10000 bp)  5186247                
+Total length (>= 25000 bp)  5126744                
+Total length (>= 50000 bp)  5037873                
+# contigs                   50                     
+Largest contig              478789                 
+Total length                5229350                
+N50                         261925                 
+N90                         89460                  
+auN                         275824.9               
+L50                         7                      
+L90                         21                     
+# N's per 100 kbp           0.00                   

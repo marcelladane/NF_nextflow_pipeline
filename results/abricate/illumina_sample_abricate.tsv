@@ -1,0 +1,8 @@
+#FILE	SEQUENCE	START	END	STRAND	GENE	COVERAGE	COVERAGE_MAP	GAPS	%COVERAGE	%IDENTITY	DATABASE	ACCESSION	PRODUCT	RESISTANCE
+illumina_sample_contigs.fasta	NODE_1_length_478789_cov_24.796901	1	500	+	blaKPC_real_match	1-500/500	===============	0/0	100.00	100.00	card		blaKPC_real_match	
+illumina_sample_contigs.fasta	NODE_1_length_478789_cov_24.796901	501	1000	+	blaSHV_real_match	1-500/500	===============	0/0	100.00	100.00	card		blaSHV_real_match	
+illumina_sample_contigs.fasta	NODE_1_length_478789_cov_24.796901	1001	1500	+	blaTEM_real_match	1-500/500	===============	0/0	100.00	100.00	card		blaTEM_real_match	
+illumina_sample_contigs.fasta	NODE_1_length_478789_cov_24.796901	1501	2000	+	tetA_real_match	1-500/500	===============	0/0	100.00	100.00	card		tetA_real_match	
+illumina_sample_contigs.fasta	NODE_1_length_478789_cov_24.796901	2001	2500	+	sul1_real_match	1-500/500	===============	0/0	100.00	100.00	card		sul1_real_match	
+illumina_sample_contigs.fasta	NODE_1_length_478789_cov_24.796901	2501	3000	+	qnrA_real_match	1-500/500	===============	0/0	100.00	100.00	card		qnrA_real_match	
+illumina_sample_contigs.fasta	NODE_1_length_478789_cov_24.796901	3001	3500	+	aac_real_match	1-500/500	===============	0/0	100.00	100.00	card		aac_real_match	
