@@ -24,6 +24,9 @@
 ### 4. **Creation of demo reports for documentation purposes**
 - Because a few steps in the pipeline were not completed properly (flye and quast for nanopore samples) I created a demo folder inside assets and asked AI to create reports for me to populate the file.
 
+### 5. **Help to brainstorm on infrastructure regarding best tools usage**
+- Having the majority of the infrastructure already layouted, I was unsure about the best tools to use to verify update of the DB. So I requested explanation on what different tools could be used and which would be best. 
+
 ## Key Discussion Points & Prompts
 
 ### Tool Selection Discussion:
@@ -60,6 +63,19 @@
 
 ```
 "I also need to create a demo report for multiqc for the same pipeline I just asked a report for fastqc for documentation purposes. Can you help me create a HTML report I can use for the documentation. Thanks"
+```
+
+### **Help to brainstorm on infrastructure regarding best tools usage**
+```
+"I started drawing some solutions for a theoreticall architecture and would like some guidance for a tool selection.
+The basic of the structure would be as follows: 
+Files come from the sequence machine automatically, could use rsync/DataSync or inotify. This files are saved in S3 using a input folder. 
+Daily at a trigger hour, lets say 2AM, we have a S3 event which uses lambda function to create the samplesheet and start pipeline for data processing.
+The pipeline will run and we can have a SLURM hook when the pipeline is over. Then we have a lambda function copying this results which are in a CSV to the Results DB. 
+Once the results are in the DB, which we could verify by using some "Multi-Step Cleanup Trigger" (SNS Topic Orchestration, S3 + DB Sync Verification), it would trigger another lambda function which would move the data from the input bucket in S3 to a storage bucket together with the analysis output. This storage bucket would have multiple folders with sample name and date as identifier.
+The end users can access the DB by API and the CI/CD is done using GitHub for version control. 
+Questions: which of the 2 options for DB multi-step cleanup is best? can you help me with overview of functionality? And is this a robust enough architectural solution or am I forgetting any step? 
+"
 ```
 
 ## Data Security Measures
