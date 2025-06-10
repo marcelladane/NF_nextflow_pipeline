@@ -1,0 +1,9 @@
+sample_id,platform,gene,resistance,coverage,identity,database,accession,product,sequence,start,end,timestamp,run_id
+illumina_sample,illumina,blaKPC_real_match,,100.00,100.00,card,blaKPC_real_match,,NODE_1_length_478789_cov_24.796901,1,500,2025-06-10 13:38:26,run_ecstatic_fermi_20250610_1333
+illumina_sample,illumina,blaSHV_real_match,,100.00,100.00,card,blaSHV_real_match,,NODE_1_length_478789_cov_24.796901,501,1000,2025-06-10 13:38:26,run_ecstatic_fermi_20250610_1333
+illumina_sample,illumina,blaTEM_real_match,,100.00,100.00,card,blaTEM_real_match,,NODE_1_length_478789_cov_24.796901,1001,1500,2025-06-10 13:38:26,run_ecstatic_fermi_20250610_1333
+illumina_sample,illumina,tetA_real_match,,100.00,100.00,card,tetA_real_match,,NODE_1_length_478789_cov_24.796901,1501,2000,2025-06-10 13:38:26,run_ecstatic_fermi_20250610_1333
+illumina_sample,illumina,sul1_real_match,,100.00,100.00,card,sul1_real_match,,NODE_1_length_478789_cov_24.796901,2001,2500,2025-06-10 13:38:26,run_ecstatic_fermi_20250610_1333
+illumina_sample,illumina,qnrA_real_match,,100.00,100.00,card,qnrA_real_match,,NODE_1_length_478789_cov_24.796901,2501,3000,2025-06-10 13:38:26,run_ecstatic_fermi_20250610_1333
+illumina_sample,illumina,aac_real_match,,100.00,100.00,card,aac_real_match,,NODE_1_length_478789_cov_24.796901,3001,3500,2025-06-10 13:38:26,run_ecstatic_fermi_20250610_1333
+nanopore_sample,illumina,None detected,Sensitive,0,0,card,,,,0,0,2025-06-10 13:38:26,run_ecstatic_fermi_20250610_1333

@@ -1,0 +1,26 @@
+AMR Pipeline Export Summary
+==========================================
+Timestamp: 2025-06-10 13:38:26
+Run ID: run_ecstatic_fermi_20250610_1333
+
+Files Generated:
+- amr_results.csv: AMR gene detection results
+- assembly_stats.csv: Assembly quality metrics
+
+AMR Results Summary:
+  Total samples analyzed: 8
+  Samples with resistance genes: 7
+  Top resistance genes:
+    tetA_real_match: 1
+    sul1_real_match: 1
+    qnrA_real_match: 1
+    blaTEM_real_match: 1
+    blaSHV_real_match: 1
+
+Assembly Quality Summary:
+  Total samples: 13
+  Successful assemblies: 1
+  Average contigs per sample: 0
+
+Export completed successfully!
+CSV files are ready for analysis and database import.

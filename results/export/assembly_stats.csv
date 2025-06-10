@@ -1,0 +1,14 @@
+sample_id,platform,total_length,contigs,n50,largest_contig,gc_content,status,timestamp,run_id
+illumina_sample,illumina,5240590
+5227159
+5201163
+5186247
+5126744
+5037873
+5229350,114
+47
+33
+31
+28
+25
+50,261925,478789,0,Success,2025-06-10 13:38:26,run_ecstatic_fermi_20250610_1333

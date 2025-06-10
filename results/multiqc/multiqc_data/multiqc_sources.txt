@@ -1,5 +1,5 @@
 Module	Section	Sample Name	Source
-Snippy	snippy	command.err	/home/marcelladane/FOHM/fohm_pipeline/work/26/217cb3ad49fe1cd2e34d09707e2846/.command.err
-FastQC	all_sections	illumina_R1	/home/marcelladane/FOHM/fohm_pipeline/work/26/217cb3ad49fe1cd2e34d09707e2846/illumina_R1_fastqc.zip
-FastQC	all_sections	illumina_R2	/home/marcelladane/FOHM/fohm_pipeline/work/26/217cb3ad49fe1cd2e34d09707e2846/illumina_R2_fastqc.zip
-FastQC	all_sections	nanopore_subset	/home/marcelladane/FOHM/fohm_pipeline/work/26/217cb3ad49fe1cd2e34d09707e2846/nanopore_subset_fastqc.zip
+Snippy	snippy	command.err	/home/marcelladane/FOHM/fohm_pipeline/work/53/9cf6781e6e77e65903d77f82002260/.command.err
+FastQC	all_sections	illumina_R1	/home/marcelladane/FOHM/fohm_pipeline/work/53/9cf6781e6e77e65903d77f82002260/illumina_R1_fastqc.zip
+FastQC	all_sections	illumina_R2	/home/marcelladane/FOHM/fohm_pipeline/work/53/9cf6781e6e77e65903d77f82002260/illumina_R2_fastqc.zip
+FastQC	all_sections	nanopore_subset	/home/marcelladane/FOHM/fohm_pipeline/work/53/9cf6781e6e77e65903d77f82002260/nanopore_subset_fastqc.zip

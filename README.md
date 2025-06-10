@@ -20,10 +20,10 @@ nextflow -version
 fastqc --version
 multiqc --version
 trimmomatic -version
-spades.py --version
+spades --version
 flye --version
 abricate --version
-quast.py --version
+quast --version
 ```
 
 ## Pipeline Execution
@@ -85,6 +85,11 @@ nextflow run main.nf --input data/samplesheet.csv -profile slurm
 ### Processing Logs
 - `results/pipeline_info/` - Execution reports and timelines
 
+### CSV file extration
+- `results/export_csv/` - csv file to be appended to the DB
+  - `*_.csv` - csv table with results
+  - `logs/` - Analysis logs
+
 ## Expected Behavior with Test Data
 
 ### Successful Components ✅
@@ -94,6 +99,7 @@ nextflow run main.nf --input data/samplesheet.csv -profile slurm
 - **ABRicate**: AMR gene annotation (using mock databases)
 - **QUAST**: Assembly quality assessment
 - **MultiQC**: Comprehensive reporting
+- **Export**: Makes csv format tables to be appended to the DB
 
 ### Limited Components ⚠️
 - **Flye**: May fail due to memory constraints on development hardware
@@ -138,21 +144,8 @@ This is expected on development hardware. The pipeline will:
 3. Continue with other processes
 4. Filter out failed assemblies automatically
 
-### ABRicate Database Issues
-If ABRicate fails to find databases:
-```bash
-# Ensure mock databases are set up
-bash bin/setup_fohm_databases.sh
-
-# Set environment variable
-export ABRICATE_DATADIR="./databases/abricate"
-
-# Or use parameter
---abricate_datadir ./databases/abricate
-```
-
 ### QUAST Issues
-If QUAST fails, the pipeline will generate basic assembly statistics manually to ensure continuation.
+If QUAST fails, the pipeline will generate basic assembly statistics of existing samples only.
 
 ## Development Notes
 
@@ -166,5 +159,4 @@ If QUAST fails, the pipeline will generate basic assembly statistics manually to
 For production deployment:
 1. Use real AMR databases: `abricate --setupdb`
 2. Increase resource allocations for large datasets
-3. Consider containerization for reproducibility
-4. Implement CI/CD testing with the test profile
+3. Implement CI/CD testing with the test profile

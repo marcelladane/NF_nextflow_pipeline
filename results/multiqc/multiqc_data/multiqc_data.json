@@ -2,14 +2,14 @@
     "report_data_sources": {
         "Snippy": {
             "snippy": {
-                "command.err": "/home/marcelladane/FOHM/fohm_pipeline/work/26/217cb3ad49fe1cd2e34d09707e2846/.command.err"
+                "command.err": "/home/marcelladane/FOHM/fohm_pipeline/work/53/9cf6781e6e77e65903d77f82002260/.command.err"
             }
         },
         "FastQC": {
             "all_sections": {
-                "illumina_R1": "/home/marcelladane/FOHM/fohm_pipeline/work/26/217cb3ad49fe1cd2e34d09707e2846/illumina_R1_fastqc.zip",
-                "illumina_R2": "/home/marcelladane/FOHM/fohm_pipeline/work/26/217cb3ad49fe1cd2e34d09707e2846/illumina_R2_fastqc.zip",
-                "nanopore_subset": "/home/marcelladane/FOHM/fohm_pipeline/work/26/217cb3ad49fe1cd2e34d09707e2846/nanopore_subset_fastqc.zip"
+                "illumina_R1": "/home/marcelladane/FOHM/fohm_pipeline/work/53/9cf6781e6e77e65903d77f82002260/illumina_R1_fastqc.zip",
+                "illumina_R2": "/home/marcelladane/FOHM/fohm_pipeline/work/53/9cf6781e6e77e65903d77f82002260/illumina_R2_fastqc.zip",
+                "nanopore_subset": "/home/marcelladane/FOHM/fohm_pipeline/work/53/9cf6781e6e77e65903d77f82002260/nanopore_subset_fastqc.zip"
             }
         }
     },
@@ -4811,12 +4811,12 @@
         }
     },
     "config_analysis_dir_abs": [
-        "/home/marcelladane/FOHM/fohm_pipeline/work/26/217cb3ad49fe1cd2e34d09707e2846"
+        "/home/marcelladane/FOHM/fohm_pipeline/work/53/9cf6781e6e77e65903d77f82002260"
     ],
     "config_analysis_dir": [
         "."
     ],
-    "config_creation_date": "2025-06-10, 12:41 CEST",
+    "config_creation_date": "2025-06-10, 13:38 CEST",
     "config_git_hash": null,
     "config_intro_text": null,
     "config_report_comment": null,

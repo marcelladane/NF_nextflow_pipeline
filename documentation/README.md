@@ -96,6 +96,7 @@ This approach prioritizes:
 ✅ Genome assembly (SPAdes/Flye) - See notes on issues and workarounds
 ✅ Abricate
 ✅ Comparative analysis - Will need update once Flye is working properly   
+✅ CSV output - This will be used to append to the full DB with all data   
 
 ## Issues and workarounds
 - Flye failure:
@@ -104,6 +105,7 @@ This approach prioritizes:
     - So for the last step I need to add a troubleshooting in case a file doesnt exist to proceed without it. Because I cannot run this tool on my laptop. That will need to be tested and optimized on the cloud. 
 - To have a full DB to run Abricade my laptop would not have computer power enough. For testing purposes, I use a mock DB made with help of AI. Therefore the results are not correct, only for demonstration purposes.
 - Quast is skippping report on nanopore considering I cannot run it locally. So once nanopore module is tested on the cloud we need to edit quast accordingly. 
+- I am assuming there would be separate DBs for actual AMR data and for quality STATs so I made the tables separetely. To define the best solution I would need to know what is the current structure of the local DB.
 
 
 Repository Structure   
@@ -135,6 +137,8 @@ fohm-amr-pipeline/
 ├──────── main.nf   
 ├────── quast   
 ├──────── main.nf   
+├────── export_csv   
+├──────── main.nf   
 ├── bin   
 ├──── setup_fastqc_config   
 ├── assets    
@@ -148,7 +152,8 @@ fohm-amr-pipeline/
 ├────── trimmomatic_example_output     
 ├────── multiqc_report_template     
 ├── documents   
-├──── LLM_usage_documentation.rmd     
+├──── LLM_usage_documentation.rmd   
+├──── README.rmd       # commented file with details on issues during implementation         
 ├──── Technical_limitations_rmd   
 ├── containers   
 ├────    
@@ -157,4 +162,8 @@ fohm-amr-pipeline/
 ├────fastqc                # contain all fastqc reports       
 ├────multiqc               # contain multiqc reports   
 ├────pipeline_info         # contain system requirements/run time reports       
-├────
+├────spades                # contain illumina assembly data   
+├────flye                  # contain nanopore assembly data   
+├────abricate              # contain AMR output data   
+├────quast                 # contain summary output   
+├────export                # contain CSV file which can be used to append new data to the DB       

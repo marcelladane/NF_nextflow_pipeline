@@ -1,13 +1,14 @@
-// workflows/main.nf - COMPLETE PIPELINE WITH AMR ANALYSIS AND QUALITY ASSESSMENT
-// Shows complete implementation with proper error handling
+// workflows/main.nf - COMPLETE PIPELINE WITH AMR ANALYSIS, QUALITY ASSESSMENT, AND PARQUET EXPORT
+// Shows complete implementation with proper error handling and data export
 
-include { FASTQC }      from '../modules/local/fastqc/main'
-include { TRIMMOMATIC } from '../modules/local/trimmomatic/main'
-include { SPADES }      from '../modules/local/spades/main'
-include { FLYE }        from '../modules/local/flye/main'
-include { ABRICATE }    from '../modules/local/abricate/main'
-include { QUAST }       from '../modules/local/quast/main'
-include { MULTIQC }     from '../modules/local/multiqc/main'
+include { FASTQC }         from '../modules/local/fastqc/main'
+include { TRIMMOMATIC }    from '../modules/local/trimmomatic/main'
+include { SPADES }         from '../modules/local/spades/main'
+include { FLYE }           from '../modules/local/flye/main'
+include { ABRICATE }       from '../modules/local/abricate/main'
+include { QUAST }          from '../modules/local/quast/main'
+include { MULTIQC }        from '../modules/local/multiqc/main'
+include { EXPORT_CSV } from '../modules/local/export_csv/main'
 
 workflow FOHM_AMR {
     // Define input channel from samplesheet
@@ -84,7 +85,8 @@ workflow FOHM_AMR {
     ABRICATE(ch_assemblies)
     ABRICATE.out.report.view { "ABRicate results: $it" }
     
-    // Run QUAST quality assessment on all valid assemblies
+    // Run QUAST quality assessment on Illumina assemblies only (filtered)
+    // Nanopore is skipped until Flye memory issues are resolved
     QUAST(ch_assemblies)
     QUAST.out.results.view { "QUAST results: $it" }
     
@@ -109,13 +111,57 @@ workflow FOHM_AMR {
         ch_multiqc_logo
     )
     
+    // ========================================
+    // CSV EXPORT - SIMPLE AND EFFECTIVE
+    // ========================================
+    
+    // Collect all ABRicate results for export
+    ch_abricate_for_export = ABRICATE.out.report
+        .map { meta, file -> file }
+        .collect()
+    
+    // Collect all QUAST results for export  
+    ch_quast_for_export = QUAST.out.results
+        .map { meta, dir -> dir }
+        .collect()
+    
+    // Create run info with timestamp
+    ch_run_info = Channel.value("run_${workflow.runName}_${new Date().format('yyyyMMdd_HHmm')}")
+    
+    // Export all results to CSV format for easy analysis
+    EXPORT_CSV(
+        ch_abricate_for_export,
+        ch_quast_for_export,
+        ch_run_info
+    )
+    
+    // Log export completion
+    EXPORT_CSV.out.csv.view { "✅ CSV export completed: $it" }
+    EXPORT_CSV.out.summary.view { "📊 Export summary available: $it" }
+    
+    // ========================================
+    // END PARQUET EXPORT
+    // ========================================
+    
     // Emit outputs for downstream processes
     emit:
+    // Raw data channels
     raw_reads = ch_samplesheet
     processed_reads = ch_processed_reads
     assemblies = ch_assemblies                    // Only successful assemblies
     valid_assemblies = ch_assemblies              // Assemblies that passed quality filter
+    
+    // Quality control outputs
+    fastqc_html = FASTQC.out.html
+    fastqc_zip = FASTQC.out.zip
+    multiqc_report = MULTIQC.out.report
+    multiqc_data = MULTIQC.out.data
+    
+    // Read processing outputs
     trimmed_reads = TRIMMOMATIC.out.reads
+    trimmomatic_log = TRIMMOMATIC.out.log
+    
+    // Assembly outputs
     spades_contigs = SPADES.out.contigs          // SPAdes results (reliable)
     spades_graphs = SPADES.out.graphs
     spades_log = SPADES.out.log
@@ -123,12 +169,14 @@ workflow FOHM_AMR {
     flye_graphs = FLYE.out.graphs
     flye_info = FLYE.out.info
     flye_log = FLYE.out.log
+    
+    // Analysis outputs
     abricate_reports = ABRICATE.out.report       // AMR analysis results
     abricate_logs = ABRICATE.out.log
     quast_results = QUAST.out.results            // Assembly quality assessment
-    fastqc_html = FASTQC.out.html
-    fastqc_zip = FASTQC.out.zip
-    trimmomatic_log = TRIMMOMATIC.out.log
-    multiqc_report = MULTIQC.out.report
-    multiqc_data = MULTIQC.out.data
+    
+    // NEW: Export outputs for database integration
+    csv_export = EXPORT_CSV.out.csv              // Main CSV export
+    assembly_stats = EXPORT_CSV.out.assembly_stats // Assembly quality CSV
+    export_summary = EXPORT_CSV.out.summary      // Analysis summary report
 }

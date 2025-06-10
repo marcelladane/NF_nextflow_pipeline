@@ -2,6 +2,9 @@
 # Create with: conda env create -f environment.yml
 # Activate with: conda activate fohm-amr-pipeline
 
+# For conda environment.yml, add:
+# - pyarrow=12.0.0
+# - pandas=1.5.3
 name: fohm-amr-pipeline
 channels:
   - conda-forge
@@ -39,6 +42,7 @@ dependencies:
   - pandas=1.5.3
   - numpy=1.24.3
   - matplotlib=3.7.1
+  - pyarrow=20.0.0
 
   # Report generation essentials
   - jinja2=3.1.2

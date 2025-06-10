@@ -38,5 +38,10 @@ flake8>=4.0.0
 sphinx>=4.0.0
 sphinx-rtd-theme>=1.0.0
 
-# Note: Bioinformatics tools (FastQC, SPAdes, Flye, ABRicate, etc.) 
-# are installed via conda from bioconda channel for better compatibility
+# Parquet export dependencies
+pyarrow>=12.0.0
+pandas>=1.5.0
+
+# For conda environment.yml, add:
+# - pyarrow=12.0.0
+# - pandas=1.5.3
