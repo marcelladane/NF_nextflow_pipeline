@@ -1,0 +1,59 @@
+======= SPAdes pipeline started. Log can be found here: /data/spades_output/spades.log
+
+===== Assembling started.
+
+== Running read error correction tool: BayesHammer
+
+== Dataset description file was created: /data/spades_output/corrected/configs/config.info
+
+== Running BayesHammer subpipeline for error correction
+ * Hammer tools runner
+   tool           : spades-hammer-linux
+   dir            : /data/spades_output/corrected
+   reads          : /data/illumina_R1.fastq.gz /data/illumina_R2.fastq.gz
+   output dir     : /data/spades_output/corrected
+
+== Error correction and assembling warnings:
+ * All reads were processed.
+
+== Running assembler: SPAdes
+
+  * K-mer length: 21
+  * Output:       /data/spades_output/K21
+  * Stages:       graph_construction distance_estimation
+
+  * K-mer length: 33
+  * Output:       /data/spades_output/K33
+  * Stages:       graph_construction distance_estimation
+
+  * K-mer length: 55
+  * Output:       /data/spades_output/K55
+  * Stages:       graph_construction distance_estimation
+
+== Running assembler: SPAdes
+
+  * Corrected reads:   /data/spades_output/corrected/illumina_sample_1.fastq.00.0_0.cor.fastq.gz
+  * Corrected reads:   /data/spades_output/corrected/illumina_sample_2.fastq.00.0_0.cor.fastq.gz
+
+  * K-mer length: 21
+  * Average coverage: 23.4
+  * Estimated insert size: 250-350 bp
+
+  * K-mer length: 33
+  * Average coverage: 23.4
+  * Estimated insert size: 250-350 bp
+
+  * K-mer length: 55
+  * Average coverage: 23.4
+  * Estimated insert size: 250-350 bp
+
+===== Assembling finished.
+
+SPAdes log can be found here: /data/spades_output/spades.log
+
+Contigs were written to /data/spades_output/contigs.fasta
+Scaffolds were written to /data/spades_output/scaffolds.fasta
+
+======= SPAdes pipeline finished.
+
+SPAdes log can be found here: /data/spades_output/spades.log

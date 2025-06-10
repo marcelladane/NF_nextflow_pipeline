@@ -21,6 +21,9 @@
 - Error running flye and assistance to edit code - since it is the first time I use the tool (I didn´t work with pipelines for nanopore before, so assistance to run flye was needed since I didn´t have time enough to evaluate the full documentation and understand all requirements in depth).
 - Issue to setup the mock DB for abricate. After figuring that we had a Klebsiella DNA (I took a portion of the contig file from SPAdes and blasted in NCBI to see which bacteria was), I needed to create a new DB specific to get some hits. Because with the very generic DB I got zero hits. Used AI to help me create a new DB specific to Klebsiella to ensure pipeline execution. 
 
+### 4. **Creation of demo reports for documentation purposes**
+- Because a few steps in the pipeline were not completed properly (flye and quast for nanopore samples) I created a demo folder inside assets and asked AI to create reports for me to populate the file.
+
 ## Key Discussion Points & Prompts
 
 ### Tool Selection Discussion:
@@ -48,6 +51,15 @@
 "Based on a short screen of flye, I wrote this basic script for processing nanopore data (see attached file). I got an error printed. Can you please revise the code and help me understand which parameter is causing the error and the best fixing for it."
 
 "I run blast on my contig output from SPAdes and found that the bacteria we are working with (the FASTA files I have) is Klebsiella. Can you help me create a new mock DB (I am attaching the previous script here to makes things work properly). where the AMR genes are specific to Klebsiella so I can ensure I will get hits to verify that abricate module is running correct, Thanks"
+```
+
+### Creation of demo reports for documentation purposes
+```
+"I need to create a demo report for fastqc (bioinformatics analysis - bacterial samples from illumina and nanopore) for documentation purposes. Can you help me create a HTML report I can use for the documentation. Thanks"
+```
+
+```
+"I also need to create a demo report for multiqc for the same pipeline I just asked a report for fastqc for documentation purposes. Can you help me create a HTML report I can use for the documentation. Thanks"
 ```
 
 ## Data Security Measures

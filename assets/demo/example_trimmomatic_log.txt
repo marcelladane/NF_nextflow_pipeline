@@ -1,0 +1,12 @@
+TrimmomaticPE: Started with arguments:
+ -threads 4 -phred33 illumina_R1.fastq.gz illumina_R2.fastq.gz illumina_sample_trimmed_R1.fastq.gz illumina_sample_unpaired_R1.fastq.gz illumina_sample_trimmed_R2.fastq.gz illumina_sample_unpaired_R2.fastq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using templated Output files: illumina_sample_trimmed_R1.fastq.gz illumina_sample_unpaired_R1.fastq.gz illumina_sample_trimmed_R2.fastq.gz illumina_sample_unpaired_R2.fastq.gz
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+Using Long clipping sequence: 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+Using Long clipping sequence: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT'
+Using Long clipping sequence: 'TTTTTTTTTTAATGATACGGCGACCACCGAGATCTACAC'
+Using Long clipping sequence: 'TTTTTTTTTTCAAGCAGAAGACGGCATACGAGAT'
+ILLUMINACLIP: Using 1 prefix pairs, 4 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Quality encoding detected as phred33
+Input Read Pairs: 156234 Both Surviving: 142891 (91.46%) Forward Only Surviving: 8234 (5.27%) Reverse Only Surviving: 3456 (2.21%) Dropped: 1653 (1.06%)
+TrimmomaticPE: Completed successfully

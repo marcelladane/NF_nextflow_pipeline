@@ -1,4 +1,4 @@
-# FOHM AMR Pipeline
+# AMR Pipeline
 
 Antibiotic Resistance (AMR) analysis pipeline for Illumina and Nanopore sequencing data.   
 
@@ -6,7 +6,7 @@ Antibiotic Resistance (AMR) analysis pipeline for Illumina and Nanopore sequenci
 1. Clone Repository   
 `bash   
 git clone <your-repo-url>   
-cd fohm-amr-pipeline`   
+cd NF_nextflow_pipeline`   
 
 2. Set Up Test Data   
 Option A: Download data   
@@ -109,7 +109,7 @@ This approach prioritizes:
 
 
 Repository Structure   
-fohm-amr-pipeline/   
+NF_nextflow_pipeline/   
 ├── main.nf                 # Pipeline entry point   
 ├── nextflow.config         # Configuration   
 ├── .gitignore             # Excludes large files   
@@ -149,12 +149,20 @@ fohm-amr-pipeline/
 ├──── demo   
 ├────── fastqc_report_template   
 ├────── multiqc_report_template     
-├────── trimmomatic_example_output     
-├────── multiqc_report_template     
+├────── example_trimmomatic_log     
+├────── example_abricate_tsv   
+├────── example_quast_report   
+├────── example_export_csv       
+├────── example-spades_assembly   
+├────── example-spades_log                   
+├────── example-flye_assembly    
+├────── example-flye_assembly_info   
+├────── example-flye_log                   
 ├── documents   
 ├──── LLM_usage_documentation.rmd   
 ├──── README.rmd       # commented file with details on issues during implementation         
-├──── Technical_limitations_rmd   
+├──── Technical_limitations.rmd   
+├──── Containers_strategy.rmd   
 ├── containers   
 ├────    
 ├────    

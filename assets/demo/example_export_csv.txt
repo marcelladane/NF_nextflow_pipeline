@@ -1,0 +1,10 @@
+# amr_results.csv
+sample_id,platform,gene,resistance,coverage,identity,database,accession,product,sequence,start,end,timestamp,run_id
+illumina_sample,illumina,blaOXA-1,penicillin,100.00,98.56,card,ARO:3000015,OXA beta-lactamase,NODE_1_length_45123_cov_23.4,1523,2356,2024-06-10 14:23:45,run_demo_20240610_1423
+illumina_sample,illumina,aac(3)-IId,aminoglycoside,100.00,96.23,card,ARO:3000009,aminoglycoside acetyltransferase,NODE_3_length_12456_cov_18.2,5678,6234,2024-06-10 14:23:45,run_demo_20240610_1423
+illumina_sample,illumina,sul1,sulfonamide,100.00,99.17,card,ARO:3000412,dihydropteroate synthase,NODE_5_length_8934_cov_31.1,2145,2867,2024-06-10 14:23:45,run_demo_20240610_1423
+illumina_sample,illumina,tet(A),tetracycline,100.00,97.89,card,ARO:3000008,tetracycline efflux pump,NODE_2_length_23567_cov_15.8,8934,9456,2024-06-10 14:23:45,run_demo_20240610_1423
+
+# assembly_stats.csv
+sample_id,platform,total_length,contigs,n50,largest_contig,gc_content,status,timestamp,run_id
+illumina_sample,illumina,5186234,45,261925,261925,44.23,Success,2024-06-10 14:23:45,run_demo_20240610_1423

@@ -1,0 +1,37 @@
+[2024-06-10 14:23:45] INFO: Starting Flye 2.9.0-b1778
+[2024-06-10 14:23:45] INFO: >>>STAGE: configure
+[2024-06-10 14:23:45] INFO: Configuring run
+[2024-06-10 14:23:45] INFO: Total read length: 1,234,567,890
+[2024-06-10 14:23:45] INFO: Reads N50/N90: 12567 / 8234
+[2024-06-10 14:23:45] INFO: Minimum overlap set to 1000
+[2024-06-10 14:23:45] INFO: >>>STAGE: assembly
+[2024-06-10 14:23:45] INFO: Assembling disjointigs
+[2024-06-10 14:23:46] INFO: Reading sequences
+[2024-06-10 14:23:47] INFO: Building minimizer index
+[2024-06-10 14:23:48] INFO: Pre-calculating index storage requirements
+[2024-06-10 14:23:49] INFO: Generating solid k-mer index
+[2024-06-10 14:23:52] INFO: Counting k-mers (1/2): 0%
+[2024-06-10 14:23:55] INFO: Counting k-mers (1/2): 100%
+[2024-06-10 14:23:56] INFO: Counting k-mers (2/2): 0%
+[2024-06-10 14:23:59] INFO: Counting k-mers (2/2): 100%
+[2024-06-10 14:24:02] INFO: Filling index table (1/2)
+[2024-06-10 14:24:05] INFO: Filling index table (2/2)
+[2024-06-10 14:24:08] INFO: Extending reads
+[2024-06-10 14:24:12] INFO: Overlap detection
+[2024-06-10 14:24:15] INFO: Overlapping reads: 45,234
+[2024-06-10 14:24:18] INFO: Assembling disjointigs
+[2024-06-10 14:24:21] INFO: Generating contigs
+[2024-06-10 14:24:24] INFO: >>>STAGE: consensus
+[2024-06-10 14:24:24] INFO: Running Miniasm-based consensus
+[2024-06-10 14:24:27] INFO: Polishing genome (1/1)
+[2024-06-10 14:24:30] INFO: >>>STAGE: finalize
+[2024-06-10 14:24:30] INFO: Assembly statistics:
+
+	Total length:	6,634,001
+	Fragments:	3
+	Fragments N50:	4,523,891
+	Largest fragment:	4,523,891
+	Scaffolds:	0
+	Mean coverage:	24.4
+
+[2024-06-10 14:24:30] INFO: Final assembly: /data/flye_output/assembly.fasta

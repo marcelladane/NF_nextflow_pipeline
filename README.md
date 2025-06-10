@@ -1,4 +1,4 @@
-# FOHM AMR Pipeline - Complete Usage Guide
+# AMR Pipeline - Complete Usage Guide
 
 ## Prerequisites
 
@@ -6,7 +6,7 @@
 ```bash
 # Run the database setup script
 cd bin
-bash setup_fohm_databases.sh
+bash setup_databases.sh
 cd ..
 
 # Set environment variable for ABRicate
